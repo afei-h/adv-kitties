@@ -4552,6 +4552,7 @@ dependencies = [
  "frame-benchmarking",
  "frame-support",
  "frame-system",
+ "pallet-balances",
  "pallet-insecure-randomness-collective-flip",
  "parity-scale-codec",
  "scale-info",

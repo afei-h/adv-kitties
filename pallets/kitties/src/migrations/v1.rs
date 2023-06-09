@@ -1,3 +1,5 @@
+//->v1
+
 use frame_support::{
 	pallet_prelude::*, storage::StoragePrefixedMap, traits::GetStorageVersion, weights::Weight,
 };
@@ -5,11 +7,6 @@ use frame_support::{
 use frame_support::{migration::storage_key_iter, Blake2_128Concat};
 use frame_system::pallet_prelude::*;
 use crate::*;
-// use frame_system::Pallet;
-// use frame_system::Config;
-// use crate::Kitties;
-// use crate::Kitty;
-// use crate::KittyId
 
 #[derive(
 	Encode, Decode, Clone, Copy, RuntimeDebug, PartialEq, Eq, Default, TypeInfo, MaxEncodedLen,
@@ -23,7 +20,7 @@ pub fn migrate<T: Config>() -> Weight {
 	if on_chain_version != 0 {
 		return Weight::zero()
 	}
-	if current_version != 1 {
+	if current_version != 2 {
 		return Weight::zero()
 	}
 
