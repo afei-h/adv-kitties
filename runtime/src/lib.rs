@@ -47,7 +47,8 @@ pub use sp_runtime::{Perbill, Permill};
 
 /// Import the template pallet.
 pub use pallet_template;
-
+pub use pallet_kitties;
+use frame_support::PalletId;
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -103,7 +104,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	//   `spec_version`, and `authoring_version` are the same between Wasm and native.
 	// This value is set to 100 to notify Polkadot-JS App (https://polkadot.js.org/apps) to use
 	//   the compatible custom types.
-	spec_version: 100,
+	spec_version: 200,
 	impl_version: 1,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -268,10 +269,18 @@ impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+parameter_types! {
+	pub KittyPalletId: PalletId = PalletId(*b"py/kitty");
+	pub KittyPrice: Balance = EXISTENTIAL_DEPOSIT * 10;
+}
+
 /// Configure the pallet-kitties in pallets/template.
 impl pallet_kitties::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 	type Randomness = RandomnessModule;
+	type Currency = Balances;
+	type KittyPrice = KittyPrice;
+	type PalletId = KittyPalletId;
 }
 
 impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
